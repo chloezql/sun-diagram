@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+<style>
+body{
+    background-color: #191820;
+}
+
+</style>
+</head>
+<body>
+
+    
+    
+    <script>
+
+let data = 
+//monday
+[{23:"65.88498344",22:"67.55873187",21:"66.18423327"
+,20:"67.82212571",19:"67.65401314",18:"68.59596541",17:"69.24453322",
+16:"70.19587538",15:"70.30087271",14:"70.20567516",13:"69.32373287",
+12:"69.50018615",11:"71.98755676",10:"70.44678147",9:"70.25667105",
+8:"68.66925128",7:"68.18736559",6:"68.52491236",5:"67.50513953",
+4:"65.09804326",3:"63.93313114",2:"64.13465828",1:"63.82823461",0:"65.2676325"},
+
+//tuesday
+{23:"65.79137956",22:"66.59299137",21:"69.28911527"
+,20:"67.96143151",19:"68.037914",18:"69.50725041",17:"70.30893994",
+16:"68.78997625",15:"69.84641175",14:"71.49317332",13:"70.77570593",
+12:"69.73100664",11:"70.88578871",10:"70.56133091",9:"71.00938845",
+8:"69.68946135",7:"69.30373546",6:"69.7921236",5:"68.30982371",
+4:"65.1472748",3:"63.82681858",2:"64.03313729",1:"64.98309646",0:"65.31559196"},
+
+//wednesday
+{23:"66.22259716",22:"67.42291554",21:"66.54707691"
+,20:"68.84970515",19:"68.70043449",18:"69.30696599",17:"68.49597971",
+16:"68.72719684",15:"69.28308296",14:"70.20490949",13:"69.5023439",
+12:"70.26934804",11:"72.92279978",10:"70.63903177",9:"69.28466768",
+8:"69.51286741",7:"69.51298673",6:"69.85886586",5:"68.03437343",
+4:"65.93612839",3:"64.47018718",2:"64.06093467",1:"64.88461501",0:"64.44827623"},
+
+//thursday
+{23:"66.21251297",22:"67.33761925",21:"67.16324161"
+,20:"69.23869788",19:"68.12247548",18:"69.43239013",17:"71.30304045",
+16:"69.34761634",15:"71.41091915",14:"70.35493559",13:"70.9532356",
+12:"70.87322249",11:"70.20879761",10:"70.5838329",9:"70.34363775",
+8:"70.59260893",7:"69.59740773",6:"69.79771587",5:"68.81591591",
+4:"65.10257723",3:"63.67329405",2:"63.68028289",1:"64.3618263",0:"65.16387314"},
+
+//friday
+{23:"67.47837187",22:"67.62319559",21:"66.89985259"
+,20:"68.0309873",19:"69.0106723",18:"71.07349375",17:"70.02928228",
+16:"70.46417895",15:"70.59680684",14:"69.44979343",13:"70.89791441",
+12:"72.23104869",11:"72.40276865",10:"70.07812431",9:"70.83654588",
+8:"72.17274061",7:"69.66641384",6:"69.87200329",5:"69.3619698",
+4:"66.08290708",3:"64.50329472",2:"64.12385601",1:"64.71737341",0:"65.37973065"},
+
+//sat
+{23:"66.1511986",22:"65.55303629",21:"67.91685549"
+,20:"67.73193832",19:"68.46292691",18:"69.1798521",17:"70.23272649",
+16:"68.98463317",15:"68.48039844",14:"69.05232636",13:"67.38978655",
+12:"68.31824137",11:"67.31864874",10:"67.36330029",9:"66.57520687",
+8:"66.61499392",7:"66.3143269",6:"65.61704737",5:"64.53762393",
+4:"63.82369392",3:"63.22127963",2:"64.05928993",1:"67.15650923",0:"66.33914904"},
+
+//sun
+{23:"66.07596957",22:"66.40505843",21:"66.64522899"
+,20:"67.59969873",19:"68.54285626",18:"69.91744025",17:"68.65082487",
+16:"68.22612272",15:"67.24029355",14:"68.68251944",13:"68.1242154",
+12:"67.19753406",11:"66.31994098",10:"66.05462188",9:"66.08411358",
+8:"64.8798769",7:"63.79293869",6:"63.49819038",5:"62.4022266",
+4:"62.27308066",3:"62.39936591",2:"62.90062513",1:"64.76496661",0:"65.7709012"},
+
+
+
+];
+let features = [
+"23","22","21","20","19","18","17","16","15","14","13","12","11","10","9","8","7","6","5","4","3","2","1","0"];
+//generate the data
+
+    // var point = {}
+    // //each feature will be a random number from 1-9
+    // features.forEach(f => point[f] = 1 + Math.random() * 8);
+    // data.push(point);
+
+console.log(data);
+
+    let svg = d3.select("body").append("svg")
+    .attr("width", 600)
+    .attr("height", 600)
+    .attr("fill","black");
+
+    let radialScale = d3.scaleLinear()
+    .domain([50,75])
+    .range([0,290]);
+
+
+let ticks = [61,64,67,70,73];
+ticks.forEach(t =>
+    svg.append("circle")
+    .attr("cx", 300)
+    .attr("cy", 300)
+    .attr("fill", "none")
+    .attr("stroke", "white")
+    .attr("opacity",0.2)
+    .attr("r", radialScale(t))
+);
+
+svg.append("circle")
+    .attr("cx", 300)
+    .attr("cy", 300)
+    .attr("fill", "none")
+    .attr("stroke", "white")
+    .attr("stroke-width", 2)
+    .attr("opacity",0.5)
+    .attr("r", radialScale(60))
+
+
+ticks.forEach(t =>
+    svg.append("text")
+    .attr("x", 283)
+    .attr("y", 295 - radialScale(t))
+    .attr("fill","white")
+    .text(t.toString())
+   .attr("font-size",15)
+    .attr("opacity",0.7)
+);
+
+function angleToCoordinate(angle, value){
+    let x = Math.cos(angle) * radialScale(value);
+    let y = Math.sin(angle) * radialScale(value);
+    return {"x": 300 + x, "y": 300 - y};
+}
+
+//draw axis line
+    svg.append("line")
+    .attr("x1", 300)
+    .attr("y1", 183)
+    .attr("x2", 300)
+    .attr("y2", 25)
+    .attr("stroke","lightgrey");
+
+    svg.append("circle")
+                .attr("cx", 300)
+                .attr("cy", 25)
+                .attr("r", 3)
+                .attr("fill","lightgrey");
+for (var i = 0; i < features.length; i++) {
+    let ft_name = features[i];
+    let angle = ( 19 *Math.PI/12 ) + (2 * Math.PI * i / features.length);
+    let line_coordinate = angleToCoordinate(angle, 24);
+    let label_coordinate = angleToCoordinate(angle, 41);
+
+    
+
+    //draw axis label
+    svg.append("text")
+    .attr("x", label_coordinate.x-5)
+    .attr("y", label_coordinate.y+4)
+    .attr("fill","lightgrey")
+    .attr("font-size",10)
+    .text(ft_name);
+}
+
+function getPathCoordinates(data_point){
+    let coordinates = [];
+    for (var i = 0; i < features.length; i++){
+        let ft_name = features[i];
+        let angle = (7* Math.PI/12) + (2 * Math.PI * i / features.length);
+        coordinates.push(angleToCoordinate(angle, data_point[ft_name]));
+    }
+    return coordinates;
+}
+
+let line = d3.line()
+    .x(d => d.x)
+    .y(d => d.y)
+    .curve(d3.curveBasis); 
+let colors = ["#FFFDAB", "#FF7B76", "#B798FF","#98FFEF", "#FEC3FF", "#C3FFCB","#76ADFF"];
+
+for (var i = 0; i < data.length; i ++){
+    let d = data[i];
+    let color = colors[i];
+    let coordinates = getPathCoordinates(d);
+    console.log(coordinates)
+    //draw the path element
+    svg.append("path")
+    .datum(coordinates)
+    .attr("d",line)
+    .attr("stroke-width", 1)
+    .attr("stroke", color)
+    .attr("fill", "none")
+    .attr("stroke-opacity", 1)
+    .attr("opacity", 1);
+
+    svg.append("circle")
+                .attr("cx", coordinates[0].x)
+                .attr("cy", coordinates[0].y)
+                .attr("r", 3)
+                .attr("fill",color);
+    
+}
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
